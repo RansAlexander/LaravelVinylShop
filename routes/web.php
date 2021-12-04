@@ -1,0 +1,80 @@
+<?php
+
+use App\Genre;
+use App\Record;
+use Illuminate\Support\Facades\Route;
+use function Doctrine\Common\Cache\Psr6\get;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+//Route::get('/', function () {
+//    // return view('welcome');
+//    return('Bruh moment');
+//});
+//Route::get('contact-us', function () {
+//    return view('contact');
+//});
+Route::view('/', 'home');
+Route::get('shop', 'ShopController@index');
+Route::get('shop/{id}', 'ShopController@show');
+Route::get('contact-us', 'ContactUsController@show');
+Route::post('contact-us', 'ContactUsController@sendEmail');
+Route::get('itunes', 'ItunesController@index');
+//Route::get('admin/records', function (){
+//    $records = [
+//        'Queen - Greatest Hits',
+//        'The Rolling Stones - Sticky Fingers',
+//        'The Beatles - Abbey Road'
+//    ];
+//
+//    return view('admin.records.index', [
+//        'records' => $records
+//    ]);
+//});
+Route::prefix('admin')->group(function () {
+    Route::redirect('/', '/admin/records');
+    Route::get('records', 'Admin\RecordController@index');
+});
+Route::prefix('admin')->group(function(){
+    Route::redirect('/', 'records');
+    Route::get('records', 'Admin\RecordController@index');
+});
+Route::get('testje', function () {
+//    return Genre::with('records')->get();
+//    return Genre::get();
+    return Record::with('genre')->get();
+});
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    route::redirect('/', 'records');
+    Route::resource('genres', 'Admin\GenreController');
+    Route::get('genres2/qryGenres', 'Admin\Genre2Controller@qryGenres');
+    Route::resource('genres2', 'Admin\Genre2Controller', ['parameters' => ['genres2' => 'genre']]);
+    Route::get('records', 'Admin\RecordController@index');
+});
+Route::middleware(['auth'])->prefix('user')->group(function () {
+    Route::redirect('/', '/user/profile');
+    Route::get('profile', 'User\ProfileController@edit');
+    Route::post('profile', 'User\ProfileController@update');
+});
+Route::middleware(['auth'])->prefix('user')->group(function () {
+    Route::redirect('/', '/user/profile');
+    Route::get('profile', 'User\ProfileController@edit');
+    Route::post('profile', 'User\ProfileController@update');
+    Route::get('password', 'User\PasswordController@edit');
+    Route::post('password', 'User\PasswordController@update');
+});
+
