@@ -27,7 +27,11 @@
                     </li>
                 @endguest
                 <li class="nav-item">
-                    <a class="nav-link" href="/basket"><i class="fas fa-shopping-basket"></i>Basket</a>
+                    <a class="nav-link" href="/basket"><i class="fas fa-shopping-basket"></i>Basket
+                        @if(json_encode(Cart::getTotalQty()) > 0)
+                            <span class="badge badge-success">{{ json_encode(Cart::getTotalQty()) }}</span>
+                        @endif
+                    </a>
                 </li>
                 @auth
                     <li class="nav-item dropdown">

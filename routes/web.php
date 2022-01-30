@@ -29,46 +29,26 @@ Route::get('shop/{id}', 'ShopController@show');
 Route::get('contact-us', 'ContactUsController@show');
 Route::post('contact-us', 'ContactUsController@sendEmail');
 Route::get('itunes', 'ItunesController@index');
-//Route::get('admin/records', function (){
-//    $records = [
-//        'Queen - Greatest Hits',
-//        'The Rolling Stones - Sticky Fingers',
-//        'The Beatles - Abbey Road'
-//    ];
-//
-//    return view('admin.records.index', [
-//        'records' => $records
-//    ]);
-//});
+
 Route::prefix('admin')->group(function () {
     Route::redirect('/', '/admin/records');
     Route::get('records', 'Admin\RecordController@index');
 });
-Route::prefix('admin')->group(function(){
-    Route::redirect('/', 'records');
-    Route::get('records', 'Admin\RecordController@index');
-});
-Route::get('testje', function () {
-//    return Genre::with('records')->get();
-//    return Genre::get();
-    return Record::with('genre')->get();
-});
 
+Route::get('basket', 'BasketController@index');
+Route::get('basket/add/{id}', 'BasketController@addToCart');
+Route::get('basket/delete/{id}', 'BasketController@deleteFromCart');
+Route::get('basket/empty', 'BasketController@emptyCart');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    route::redirect('/', 'records');
+    Route::redirect('/', '/admin/records');
+    Route::get('genres/qryGenres', 'Admin\GenreController@qryGenres');
     Route::resource('genres', 'Admin\GenreController');
     Route::get('genres2/qryGenres', 'Admin\Genre2Controller@qryGenres');
     Route::resource('genres2', 'Admin\Genre2Controller', ['parameters' => ['genres2' => 'genre']]);
-    Route::get('records', 'Admin\RecordController@index');
-});
-Route::middleware(['auth'])->prefix('user')->group(function () {
-    Route::redirect('/', '/user/profile');
-    Route::get('profile', 'User\ProfileController@edit');
-    Route::post('profile', 'User\ProfileController@update');
+    Route::resource('records', 'Admin\RecordController');
 });
 Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::redirect('/', '/user/profile');
@@ -76,5 +56,13 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::post('profile', 'User\ProfileController@update');
     Route::get('password', 'User\PasswordController@edit');
     Route::post('password', 'User\PasswordController@update');
+
+    //payment
+    Route::get('history', 'User\HistoryController@index');
+    Route::post('charge', 'User\HistoryController@charge');
+    Route::get('success', 'User\HistoryController@success');
+    Route::get('error', 'User\HistoryController@error');
+
+    Route::get('checkout', 'User\HistoryController@checkout');
 });
 

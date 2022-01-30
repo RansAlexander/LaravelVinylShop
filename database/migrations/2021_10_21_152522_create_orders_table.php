@@ -16,7 +16,12 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->string('payment_id');
+            $table->string('payer_id');
+            $table->string('payer_email');
             $table->float('total_price', 6, 2);
+            $table->string('currency');
+            $table->string('payment_status');
             $table->timestamps();
 
             // Foreign key relation

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Genre;
-use App\Helpers\Json;
 use App\Record;
 use Http;
 use Illuminate\Http\Request;
+use Json;
 
 class ShopController extends Controller
 {
@@ -44,7 +44,7 @@ class ShopController extends Controller
             ->makeHidden(['created_at', 'updated_at', 'records_count']);    // Remove all fields that you don't use inside the view
         $result = compact('genres', 'records');     // $result = ['genres' => $genres, 'records' => $records]
 
-//        JSON::dump($result);
+        JSON::dump($result);
         return view('shop.index', $result);
     }
 

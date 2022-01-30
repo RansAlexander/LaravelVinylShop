@@ -6,14 +6,6 @@ namespace App\Helpers;
 
 class Json
 {
-    /**
-     * Dump data as json (add ?json to URL)
-     * Dump the given variable and ends execution of the script (add ?dd to URL)
-     *
-     * @param mixed $data string, array, associative array object
-     * @param bool $onlyInDebugMode runs only in debug mode: default = true
-     * @version 1.0
-     */
     public function dump($data = null, $onlyInDebugMode = true)
     {
         $show = ($onlyInDebugMode === true && env('APP_DEBUG') === false) ? false : true;

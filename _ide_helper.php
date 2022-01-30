@@ -14141,18 +14141,112 @@
      */ 
         class Json {
                     /**
-         * Dump data as json (add ?json to URL)
-         * Dump the given variable and ends execution of the script (add ?dd to URL)
+         * 
          *
-         * @param mixed $data string, array, associative array object
-         * @param bool $onlyInDebugMode runs only in debug mode: default = true
-         * @version 1.0
          * @static 
          */ 
         public static function dump($data = null, $onlyInDebugMode = true)
         {
                         /** @var \App\Helpers\Json $instance */
                         return $instance->dump($data, $onlyInDebugMode);
+        }
+         
+    }
+            /**
+     * 
+     *
+     * @see \App\Helpers\Cart
+     */ 
+        class Cart {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function add($item)
+        {
+                        /** @var \App\Helpers\Cart $instance */
+                        return $instance->add($item);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function delete($item)
+        {
+                        /** @var \App\Helpers\Cart $instance */
+                        return $instance->delete($item);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function empty()
+        {
+                        /** @var \App\Helpers\Cart $instance */
+                        return $instance->empty();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getCart()
+        {
+                        /** @var \App\Helpers\Cart $instance */
+                        return $instance->getCart();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getRecords()
+        {
+                        /** @var \App\Helpers\Cart $instance */
+                        return $instance->getRecords();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getOneRecord($key)
+        {
+                        /** @var \App\Helpers\Cart $instance */
+                        return $instance->getOneRecord($key);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getKeys()
+        {
+                        /** @var \App\Helpers\Cart $instance */
+                        return $instance->getKeys();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getTotalQty()
+        {
+                        /** @var \App\Helpers\Cart $instance */
+                        return $instance->getTotalQty();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getTotalPrice()
+        {
+                        /** @var \App\Helpers\Cart $instance */
+                        return $instance->getTotalPrice();
         }
          
     }
@@ -17526,6 +17620,7 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Json extends \Facades\App\Helpers\Json {}
+            class Cart extends \Facades\App\Helpers\Cart {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
      
 }

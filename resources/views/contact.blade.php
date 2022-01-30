@@ -33,25 +33,16 @@
                    placeholder="Your email"
                    required
                    value="{{ old('email') }}">
-        </div>
-        <div class="form-group dropdown">
-            <label for="contact">COntact</label>
-            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+            <div class="invalid-feedback">{{ $errors->first('email') }}</div>
         </div>
         <div class="form-group">
             <label for="message">Message</label>
             <textarea name="message" id="message" rows="5"
-                      class="form-control"
+                      class="form-control {{ $errors->any() ? ($errors->first('message') ? 'is-invalid' : 'is-valid') : '' }}"
                       placeholder="Your message"
                       required
                       minlength="10">{{ old('message') }}</textarea>
+            <div class="invalid-feedback">{{ $errors->first('message') }}</div>
         </div>
         <button type="submit" class="btn btn-success">Send Message</button>
     </form>
